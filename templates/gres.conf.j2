@@ -4,10 +4,12 @@
 {% for gres_item in conf %}
 {% if 'NodeName' in gres_item.keys() %}
 NodeName={{ gres_item['NodeName'] }}{% for key, value in gres_item.items() %}{% if key != 'NodeName' %} {{ key }}={{ value }}{% endif %}{% endfor %}
+
 {% else %}
 {% for key, val in gres_item.items() %}
 {% if val is not none and val != omit %}
 {{ key }}={{ 'yes' if val is sameas true else ('no' if val is sameas false else val) }}
+
 {% endif %}
 {% endfor %}
 {% endif %}
