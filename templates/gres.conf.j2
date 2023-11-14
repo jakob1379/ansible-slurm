@@ -1,11 +1,11 @@
 {{ ansible_managed | comment }}
 
 {% set conf = lookup('vars', item.config) %}
-{% for key in conf %}
-{% if 'NodeName' in key %}
-NodeName={{ key['NodeName'] }}{% for key in key | sort %}{% if key != 'NodeName' %} {{ key }}={{ key[key] }}{% endif %}{% endfor %}
+{% for gres_item in conf %}
+{% if 'NodeName' in gres_item.keys %}
+NodeName={{ key['NodeName'] }}{% for key in gres_item | sort %}{% if key != 'NodeName' %} {{ key }}={{ key[key] }}{% endif %}{% endfor %}
 {% else %}
-{% set val = conf[key] %}
+{% set val = conf[gres_item] %}
 {% if val is not none and val != omit %}
 {{ key }}={{ 'yes' if val is sameas true else ('no' if val is sameas false else val) }}
 {% endif %}
